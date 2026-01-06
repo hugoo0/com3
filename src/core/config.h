@@ -80,7 +80,8 @@ public:
     int devMode = 0;
     int colorInverted = 1;
     int badUSBBLEKeyboardLayout = 0;
-    int badUSBBLEKeyDelay = 50;
+    int badUSBBLEKeyDelay = 10;
+    bool badUSBBLEShowOutput = true;
 
     std::vector<String> disabledMenus = {};
 
@@ -173,6 +174,7 @@ public:
     void validateBadUSBBLEKeyboardLayout();
     void setBadUSBBLEKeyDelay(int value);
     void validateBadUSBBLEKeyDelay();
+    void setBadUSBBLEShowOutput(bool value);
     void addDisabledMenu(String value);
     // TODO: removeDisabledMenu(String value);
 

@@ -1287,6 +1287,7 @@ void setBadUSBBLEMenu() {
     options = {
         {"Keyboard Layout", setBadUSBBLEKeyboardLayoutMenu},
         {"Key Delay",       setBadUSBBLEKeyDelayMenu      },
+        {"Show Output",     setBadUSBBLEShowOutputMenu    },
     };
     addOptionToMainMenu();
 
@@ -1331,12 +1332,27 @@ void setBadUSBBLEKeyboardLayoutMenu() {
 **********************************************************************/
 void setBadUSBBLEKeyDelayMenu() {
     String delayStr = keyboard(String(bruceConfig.badUSBBLEKeyDelay), 3, "Key Delay (ms):");
-    uint16_t delayVal = static_cast<uint16_t>(delayStr.toInt());
-    if (delayVal >= 25 && delayVal <= 500) {
+    uint8_t delayVal = static_cast<uint8_t>(delayStr.toInt());
+    if (delayVal >= 0 && delayVal <= 500) {
         bruceConfig.setBadUSBBLEKeyDelay(delayVal);
     } else if (delayVal != 0) {
-        displayError("Invalid key delay value (25 to 500)", true);
+        displayError("Invalid key delay value (0 to 500)", true);
     }
+}
+
+/*********************************************************************
+**  Function: setBadUSBBLEShowOutputMenu
+**  Main Menu for setting Bad USB/BLE Show Output
+**********************************************************************/
+void setBadUSBBLEShowOutputMenu() {
+    options.clear();
+    options = {
+        {"Enable",  [&]() { bruceConfig.setBadUSBBLEShowOutput(true); } },
+        {"Disable", [&]() { bruceConfig.setBadUSBBLEShowOutput(false); }},
+    };
+    addOptionToMainMenu();
+
+    loopOptions(options, bruceConfig.badUSBBLEShowOutput ? 0 : 1);
 }
 
 /*********************************************************************
