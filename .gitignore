@@ -9,3 +9,8 @@ bruce.conf
 _*.sh
 tmp
 ISSUES.md
+include/webFiles.h
+include/current_year.h
+checksum.sha256
+/*.bin
+.vscode/extensions.json

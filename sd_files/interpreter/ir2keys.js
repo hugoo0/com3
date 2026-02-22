@@ -1,4 +1,24 @@
+var display = require('display');
+var keyboard = require('keyboard');
+var ir = require('ir');
+var serial = require('serial');
+var badusb = require('badusb');
 
+var fillScreen = display.fill;
+var drawString = display.drawString;
+var print = display.print;
+var getAnyPress = keyboard.getAnyPress;
+var serialReadln = serial.readln;
+var irRead = ir.read;
+var badusbSetup = badusb.setup;
+var badusbPress = badusb.press;
+var badusbHold = badusb.hold;
+var badusbRelease = badusb.release;
+var badusbReleaseAll = badusb.releaseAll;
+var badusbPrint = badusb.print;
+var badusbPrintln = badusb.println;
+var badusbPressRaw = badusb.pressRaw;
+var badusbRunFile = badusb.runFile;
 
 // flirc-like IR2Keyboard script
 // use any IR remote to send commands to your pc
@@ -11,8 +31,6 @@ while(true) {
     fillScreen(0);
     drawString("waiting for IR signals...", 3 , 0);
     print("waiting for IR signals...", 0 , 0);
-    drawString(curr_val, 3 , 16);
-    drawString("hold any key to stop", 3 , 32);
     
     if(getAnyPress()) break;
     var cmd = serialReadln(1);
@@ -20,14 +38,14 @@ while(true) {
     
     var curr_ir_signal = irRead(1); // 1s timeout
     
+    drawString(curr_ir_signal, 3 , 16);
+    drawString("hold any key to stop", 3 , 32);
+    
     print("received:");
     print(curr_ir_signal);
     
     if(curr_ir_signal) {
 
-        // example full cmd: IRSend {"Protocol":"NEC","Bits":32,"Data":"0x20DF10EF"}
-        serialCmd("IRSend {\"Protocol\":\"" + protocol + "\",\"Bits\":32,\"Data\":\"0x" + curr_val + "\"}");
-            
         delay(delay_ms);
         fillScreen(0);
         

@@ -6,12 +6,10 @@
  * @date 2024-10-11
  */
 
-
 #ifndef __AMIIBO_H__
 #define __AMIIBO_H__
-
+#ifndef LITE_VERSION
 #include <amiibolink.h>
-
 
 class Amiibo {
 public:
@@ -55,6 +53,8 @@ private:
 
     bool openDumpFile();
     bool checkEmulationTagType();
+    void delayWithReturn(uint32_t ms);
 };
 
+#endif
 #endif
